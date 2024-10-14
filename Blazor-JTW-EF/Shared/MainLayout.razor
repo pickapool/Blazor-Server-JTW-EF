@@ -1,0 +1,48 @@
+﻿@inherits LayoutComponentBase
+
+<MudThemeProvider />
+<MudPopoverProvider />
+<MudDialogProvider />
+<MudSnackbarProvider />
+
+<PageTitle>Blazor-JTW-EF</PageTitle>
+
+<div class="page">
+    <div class="sidebar">
+        <NavMenu />
+    </div>
+
+    <main>
+        <div class="top-row px-4">
+            @firstName @role
+            <a href="https://docs.microsoft.com/aspnet/" target="_blank">About</a>
+        </div>
+
+        <article class="content px-4">
+            @Body
+        </article>
+    </main>
+</div>
+
+@code
+{
+    private string firstName;
+    private string lastName;
+    private string middleName;
+    private string role;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var authState = await _authenticationStateProvider.GetAuthenticationStateAsync();
+        var user = authState.User;
+
+        if (user.Identity.IsAuthenticated)
+        {
+            firstName = user.FindFirst("firstname")?.Value;
+            lastName = user.FindFirst("lastname")?.Value;
+            middleName = user.FindFirst("middlename")?.Value;
+            role = user.FindFirst("role")?.Value;
+            // You can use these values as needed
+        }
+    }
+}

@@ -1,0 +1,51 @@
+﻿<PreLoader>
+    <Router AppAssembly="@typeof(App).Assembly">
+        <Found Context="routeData">
+            <CascadingAuthenticationState>
+                <AuthorizeView>
+                    <Authorized>
+                        <RouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)" />
+                        <FocusOnNavigate RouteData="@routeData" Selector="h1" />
+                    </Authorized>
+                    <NotAuthorized>
+                        <LayoutView Layout="@typeof(MainLayout)">
+                            <div class="page">
+                                <MudPaper Class="d-flex flex-column pa-4" Elevation="3" Width="50vw" Height="50vh">
+                                    <MudTextField @bind-Value="username" Label="Username" Variant="Variant.Outlined" />
+                                    <MudTextField @bind-Value="password" InputType="InputType.Password" Label="Password" Variant="Variant.Outlined" />
+                                    <MudButton Variant="Variant.Filled" OnClick="Login" Color="Color.Primary">Primary</MudButton>
+                                </MudPaper>
+                            </div>
+                        </LayoutView>
+                    </NotAuthorized>
+                </AuthorizeView>
+            </CascadingAuthenticationState>
+        </Found>
+        <NotFound>
+            <PageTitle>Not found</PageTitle>
+            <LayoutView Layout="@typeof(MainLayout)">
+                <p role="alert">Sorry, there's nothing at this address.</p>
+            </LayoutView>
+        </NotFound>
+    </Router>
+</PreLoader>
+@code
+{
+    private string username, password;
+    private async Task Login()
+    {
+        Task<AuthTokenResponse> token = _userAccountService.Authenticate(username, password);
+        await token;
+        if (token.Status == TaskStatus.RanToCompletion)
+        {
+            if (token.Result == null)
+            {
+                Extensions.ShowSnackbar("Invalid email or passowrd", Variant.Filled, _snackBar, Severity.Error);
+                return;
+            } else {
+                ((CustomAuthenticationState)_authenticationStateProvider).NotifyUserAuthentication(token.Result.Token);
+                Extensions.Log(token.Result);
+            }
+        }
+    }
+}

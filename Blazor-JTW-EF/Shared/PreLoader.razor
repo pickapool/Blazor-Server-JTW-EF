@@ -1,0 +1,40 @@
+﻿@if(isChecked)
+{
+    @ChildContent
+} else {
+    <span>Loading...</span>
+}
+
+@code {
+
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+    private bool isChecked = false;
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if(firstRender)
+        {
+            ValueTask<string> getToken = _localStorage.GetItemAsync<string>("token");
+            await getToken;
+            if (getToken.IsCompletedSuccessfully)
+            {
+                if (getToken.Result == null)
+                {
+                    isChecked = true;
+                    StateHasChanged();
+                    return;
+                }
+                if (Extensions.IsTokenExpired(getToken.Result))
+                {
+                    await _localStorage.RemoveItemAsync("token");
+                    ((CustomAuthenticationState)_authenticationStateProvider).NotifyUserLogout();
+                }
+                else
+                {
+                    ((CustomAuthenticationState)_authenticationStateProvider).NotifyUserAuthentication(getToken.Result);
+                }
+                isChecked = true;
+                StateHasChanged();
+            }
+        }
+    }
+}

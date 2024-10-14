@@ -1,0 +1,25 @@
+﻿@using System.Net.Http
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Components.Authorization
+@using Microsoft.AspNetCore.Components.Forms
+@using Microsoft.AspNetCore.Components.Routing
+@using Microsoft.AspNetCore.Components.Web
+@using Microsoft.AspNetCore.Components.Web.Virtualization
+@using Microsoft.JSInterop
+@using System.Security.Claims
+
+@using Blazor_JTW_EF
+@using Blazor_JTW_EF.Shared
+@using Blazor_JTW_EF.Services.UserAccountServices
+@using Blazor_JTW_EF.Models
+@using Blazor_JTW_EF.Common
+@using Blazor_JTW_EF.AuthenticationProvider
+
+@using MudBlazor
+@using Blazored.LocalStorage
+
+@inject ILocalStorageService _localStorage
+@inject ISnackbar _snackBar
+@inject NavigationManager _navigation
+@inject IUserAccountService _userAccountService
+@inject AuthenticationStateProvider _authenticationStateProvider
