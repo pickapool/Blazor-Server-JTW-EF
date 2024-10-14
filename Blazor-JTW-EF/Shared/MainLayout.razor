@@ -14,7 +14,7 @@
 
     <main>
         <div class="top-row px-4">
-            @firstName @role
+            @firstName @position
             <a href="https://docs.microsoft.com/aspnet/" target="_blank">About</a>
         </div>
 
@@ -29,7 +29,7 @@
     private string firstName;
     private string lastName;
     private string middleName;
-    private string role;
+    private string position;
 
     protected override async Task OnInitializedAsync()
     {
@@ -41,7 +41,7 @@
             firstName = user.FindFirst("firstname")?.Value;
             lastName = user.FindFirst("lastname")?.Value;
             middleName = user.FindFirst("middlename")?.Value;
-            role = user.FindFirst("role")?.Value;
+            position = user.FindFirst("position")?.Value;
             // You can use these values as needed
         }
     }

@@ -44,7 +44,6 @@
                 return;
             } else {
                 ((CustomAuthenticationState)_authenticationStateProvider).NotifyUserAuthentication(token.Result.Token);
-                Extensions.Log(token.Result);
             }
         }
     }

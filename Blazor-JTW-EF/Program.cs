@@ -10,6 +10,8 @@ using Blazor_JTW_EF.Services.UserAccountServices;
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.AspNetCore.Identity;
+using System.Security.Claims;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,6 +22,7 @@ builder.Services.AddMudServices();
 builder.Services.AddBlazoredLocalStorage();
 builder.Services.AddAuthorization();
 builder.Services.AddCascadingAuthenticationState();
+builder.Services.AddAuthorizationCore();
 builder.Services.AddScoped<AuthenticationStateProvider, CustomAuthenticationState>();
 
 //Connection
@@ -43,6 +46,9 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.MapBlazorHub();
 app.MapFallbackToPage("/_Host");
