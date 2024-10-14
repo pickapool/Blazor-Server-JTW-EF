@@ -40,9 +40,9 @@ namespace Blazor_JTW_EF.Services.UserAccountServices
                     new Claim("firstname", user.Firstname),
                     new Claim("lastname", user.Lastname),
                     new Claim("middlename", user.Middlename),
-                    new Claim("position", user.Role),
+                    new Claim("position", user.Position),
                     new Claim("userid", user.UserId.ToString()),
-                    new Claim(ClaimTypes.Role, user.Role)
+                    new Claim(ClaimTypes.Role, user.Position)
                 });
 
                 // Generate JWT token using the extension method
