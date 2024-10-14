@@ -3,15 +3,9 @@ using Blazor_JTW_EF.Common;
 using Blazor_JTW_EF.DatabaseContext;
 using Blazor_JTW_EF.Models;
 using Blazored.LocalStorage;
-using Microsoft.AspNetCore.Authentication.OAuth;
-using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
-using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
-using System.Text;
-using static MudBlazor.CategoryTypes;
 
 namespace Blazor_JTW_EF.Services.UserAccountServices
 {
