@@ -34,7 +34,7 @@
     private string username, password;
     private async Task Login()
     {
-        Task<AuthTokenResponse> token = _userAccountService.Authenticate(username, password);
+        Task<AuthTokenResponseModel> token = _userAccountService.Authenticate(username, password);
         await token;
         if (token.Status == TaskStatus.RanToCompletion)
         {

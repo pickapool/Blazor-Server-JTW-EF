@@ -26,7 +26,7 @@ namespace Blazor_JTW_EF.Services.UserAccountServices
                 return await dbContext.Accounts.ToListAsync();
             }
         }
-        public async Task<AuthTokenResponse> Authenticate(string username, string password)
+        public async Task<AuthTokenResponseModel> Authenticate(string username, string password)
         {
             using (var dbContext = _contextFactory.CreateDbContext())
             {
@@ -49,7 +49,7 @@ namespace Blazor_JTW_EF.Services.UserAccountServices
                 var token = Extensions.GenerateJwtToken(claimsIdentity, "1t_r3publ1cKey!@#$%^&*()_+12345678!");
                 await _localStorage.SetItemAsync("token", token);
                 // Return the token response model
-                return new AuthTokenResponse(user, token);
+                return new AuthTokenResponseModel(user, token);
             }
         }
         

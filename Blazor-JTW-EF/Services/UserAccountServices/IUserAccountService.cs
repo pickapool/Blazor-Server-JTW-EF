@@ -6,6 +6,6 @@ namespace Blazor_JTW_EF.Services.UserAccountServices
     public interface IUserAccountService
     {
         Task<List<UserAccountModel>> GetAccounts();
-        Task<AuthTokenResponse> Authenticate(string username, string password);
+        Task<AuthTokenResponseModel> Authenticate(string username, string password);
     }
 }
