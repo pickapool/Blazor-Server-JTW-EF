@@ -4,13 +4,12 @@
 
 <PageTitle>Index</PageTitle>
 
-<h1>Hello, world!</h1>
-
-Welcome to your new app.
-
-<AuthorizeView Roles="Principal">
+<AuthorizeView>
     <Authorized>
-        <p>Welcome, Admin!</p>
+        @if(context.User.HasClaim( c => c.Value == "Principal"))
+        {
+            <span>Principal</span>
+        }
     </Authorized>
     <NotAuthorized>
         <h1>Access Denied</h1>
