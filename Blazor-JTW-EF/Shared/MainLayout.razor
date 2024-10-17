@@ -8,7 +8,7 @@
 <PageTitle>Blazor-JTW-EF</PageTitle>
 
 <div class="page">
-    <div class="sidebar">
+    @* <div class="sidebar">
         <NavMenu />
     </div>
 
@@ -21,7 +21,34 @@
         <article class="content px-4">
             @Body
         </article>
-    </main>
+    </main> *@
+    <MudLayout>
+    <MudAppBar Elevation="1" Dense>
+        <AuthorizeView>
+        <Authorized>
+            <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@ToggleDrawer" />
+            <MudSpacer />
+            @firstName @position
+        </Authorized>
+        <NotAuthorized>
+            WELCOME TO SYSTEM
+        </NotAuthorized>
+        </AuthorizeView>
+    </MudAppBar>
+    <MudDrawer @bind-Open="@_open" Elevation="1" Variant="@DrawerVariant.Responsive">
+        <MudDrawerHeader>
+            <MudText Typo="Typo.h6">My App</MudText>
+        </MudDrawerHeader>
+        <MudNavMenu>
+            <MudNavLink Match="NavLinkMatch.All">Store</MudNavLink>
+            <MudNavLink Match="NavLinkMatch.All">Library</MudNavLink>
+            <MudNavLink Match="NavLinkMatch.All">Community</MudNavLink>
+        </MudNavMenu>
+    </MudDrawer>
+    <MudMainContent Class="main-content">
+        @Body
+    </MudMainContent>
+</MudLayout>
 </div>
 
 @code
@@ -30,7 +57,7 @@
     private string lastName;
     private string middleName;
     private string position;
-
+    private bool _open = false;
     protected override async Task OnInitializedAsync()
     {
         var authState = await _authenticationStateProvider.GetAuthenticationStateAsync();
@@ -42,7 +69,18 @@
             lastName = user.FindFirst("lastname")?.Value;
             middleName = user.FindFirst("middlename")?.Value;
             position = user.FindFirst("position")?.Value;
-            // You can use these values as needed
         }
     }
+    private void ToggleDrawer()
+    {
+        _open = !_open;
+    }
 }
+<style>
+    .main-content {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+</style>

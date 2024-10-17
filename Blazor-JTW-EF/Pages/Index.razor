@@ -6,10 +6,7 @@
 
 <AuthorizeView>
     <Authorized>
-        @if(context.User.HasClaim( c => c.Value == "Principal"))
-        {
-            <span>Principal</span>
-        }
+        Welcome
     </Authorized>
     <NotAuthorized>
         <h1>Access Denied</h1>
