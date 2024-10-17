@@ -16,6 +16,12 @@
 @code {
     protected override async Task OnInitializedAsync()
     {
-        
+        var user = new UserAccountModel();
+        user.UserName = "cyrille";
+        user.Password = "cyrille";
+        user.Firstname = "Cyrille Con";
+        user.Middlename = "Pedorsa";
+        user.Lastname = "Morales";
+        user.Position = "Admin";
     }
 }

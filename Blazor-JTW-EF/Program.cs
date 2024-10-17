@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.AspNetCore.Identity;
 using System.Security.Claims;
+using Blazor_JTW_EF.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -30,6 +31,10 @@ builder.Services.AddDbContext<AppDatabaseContext>(options => options.UseSqlServe
 builder.Services.AddDbContextFactory<AppDatabaseContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DatabaseConnection")), ServiceLifetime.Scoped);
 // Register your services
 builder.Services.AddScoped<IUserAccountService, UserAccountService>();
+
+builder.Services.AddIdentity<UserAccountModel, IdentityRole>()
+        .AddEntityFrameworkStores<AppDatabaseContext>()
+        .AddDefaultTokenProviders();
 
 var app = builder.Build();
 

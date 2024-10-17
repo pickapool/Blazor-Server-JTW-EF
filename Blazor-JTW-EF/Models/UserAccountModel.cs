@@ -1,11 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Blazor_JTW_EF.Models
 {
     [Table("UserAccounts")]
     [PrimaryKey("UserId")]
-    public class UserAccountModel
+    public class UserAccountModel : IdentityUser
     {
         public long UserId { get; set; }
         public string UserName { get; set; } = string.Empty;

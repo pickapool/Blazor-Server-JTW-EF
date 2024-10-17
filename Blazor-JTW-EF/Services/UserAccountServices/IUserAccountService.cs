@@ -7,5 +7,6 @@ namespace Blazor_JTW_EF.Services.UserAccountServices
     {
         Task<List<UserAccountModel>> GetAccounts();
         Task<AuthTokenResponseModel> Authenticate(string username, string password);
+        Task CreateAccount(UserAccountModel userAccount);
     }
 }
